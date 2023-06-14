@@ -1,6 +1,6 @@
 # Simple Web Calculator - Fork
 
-### Used only for Automation testing interview - NOT TO BE USED AS REGULAR CALCULATOR
+## Used only for Automation testing interview - NOT TO BE USED AS REGULAR CALCULATOR
 ### The "Simple-Web-Calculator" is a basic tool that has the system of a normal arithmetic calculator, with the speciality of having some buttons and scientific symbols.
 
 ![](imgs/calculator_img.png)
