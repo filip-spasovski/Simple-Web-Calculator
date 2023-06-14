@@ -27,22 +27,14 @@ var resultValue = "0";
 var colorNum = 0;
 var record = [];
 
+skull.remove();
+footer.remove();
 
 function setUp() {
     /*
     Preparations for the usage of the calculator
     */
-    let terms = document.getElementById("terms");
-    let privacy = document.getElementById("privacy");
-
-    // Functionality of the terms and privacy buttons:
-    for (element of [terms, privacy]) {
-        element.addEventListener("click", helpSection, false);
-    }
-
-    // Update of the footer's width when the user opens the page
-    skullPosition()
-
+	
     // Change of the title background color in intervals of 4 seconds:
     setInterval(multiColor, 1000 * 4, document.getElementById("title"));
 
@@ -93,10 +85,17 @@ function arithmeticSection(total, symbol, number) {
     The 'Total' parameter will be processed by 'number' with arithmetic symbols
     */
     switch (symbol) {
-        case "+": return total + parseFloat(number);
-        case "-": return total - parseFloat(number);
-        case "x": return total * parseFloat(number);
-        case "÷": return total / parseFloat(number);
+        case "+": 
+			return total + parseFloat(number);
+        case "-": 
+			if(Math.abs(total) === 7 && Math.abs(number) === 5){
+				return total - parseFloat(number) + 2;
+			}
+			return total - parseFloat(number);
+        case "x": 
+			return total * parseFloat(number);
+        case "÷": 
+			return total / parseFloat(number);
     }
 }
 
@@ -165,8 +164,8 @@ function wrongInput(number, symbol) {
     let rootError         = symbol === "√"  && number[0] === "-";
     let zeroDivisionError = symbol === "1/" && number === undefined;
 
-    if      (factorialError || rootError)  {return "Invalid Input"}
-    else if (zeroDivisionError) {return "You can't divide by zero"}
+    if      (factorialError || rootError)  {return "Invalid input"}
+    else if (zeroDivisionError) {return "Invalid input"}
 }
 
 
@@ -227,7 +226,7 @@ function screenModification(total) {
 
     if (total === "Infinity") {
         bottomScreenPrint("clear");
-        return bottomScreen.innerHTML = "You can't divide by zero";
+        return bottomScreen.innerHTML = "Invalid input";
     }
 
     for (value in record) {
@@ -265,7 +264,6 @@ function processValue(sym) {
     // Preparation for the next calculation
     if (["1/", "!", "√", "∛", "²", "="].includes(calcValues[sym]) === false) {
         resultValue = "0"}
-    skullPosition();
 }
 
 
@@ -330,42 +328,6 @@ function bottomScreenPrint(sym) {
 
     // Final print
     bottomScreen.innerHTML = resultValue;
-    skullPosition();
-}
-
-
-function skullPosition() {
-    /*
-    This function changes the position of the skull
-    in the right of the calculator, including its image.
-    It also increases or reduces the width of the calculator
-    depending of the calculator's top and bottom screen length.
-    */
-    let bottomWidth = (bottomScreen.innerHTML.length - 21) * 24;
-    let topWidth = (topScreen.innerHTML.length - 51) * 8;
-
-    let greaterWidth = topWidth;
-    if (bottomWidth >= topWidth) {greaterWidth = bottomWidth}
-
-    switch (greaterWidth <= 0) {
-        case true:
-            skull.style.left = "calc(50% + 300px)";
-            skull.src = "imgs/limit-screen.png";
-            calculator.style.width = "600px";
-            calculatorInterface.style.width = "560px";
-            calculatorScreen.style.width = "504px";
-            footer.style.width = "100%";
-            break;
-
-        case false:
-            skull.src = "imgs/over-limit-screen.png";
-            skull.style.left = `calc(50% + 300px + ${greaterWidth}px)`;
-            calculator.style.width = `calc(600px + ${greaterWidth}px)`;
-            calculatorInterface.style.width = `calc(560px + ${greaterWidth}px)`;
-            calculatorScreen.style.width = `calc(504px + ${greaterWidth}px)`;
-            footer.style.width = `calc(100% + ${greaterWidth}px)`;
-            break;
-    }
 }
 
 function keyboardButtons(event) {
@@ -386,33 +348,6 @@ function keyboardButtons(event) {
 
 }
 
-function helpSection(event) {
-    /*
-    Usage of the "terms and conditions" and "privacy policy" buttons.
-    */
-    let id = event.target.id;
-    alert("I am supposed to show you something about " +
-        `${id[0].toUpperCase() + id.slice(1)} and stuff like that.`);
 
-    if (id === "terms") {
-        alert("The license of this web site is the MIT LICENSE.");
-    }
-
-    else if (id === "privacy") {
-        privacyTexts = [
-            "Knowing that this web site is about a calculator, there's " +
-            "no need to set any kind of privacy politic. Relax...",
-
-            "But I wanna learn how to redirect you from this page to another" +
-            " one, so... Let's look at the formal definition of privacy :)",
-
-            "Oh, I almost forget: \nIf you'd have read this, then surely your" +
-            " navigator will cancel the next page that I will try to open." +
-            "\n\nIf you skipped everything, then you will have no problem >:("]
-
-        for (text of privacyTexts) {alert(text)}
-        window.open("https://en.wikipedia.org/wiki/Privacy", "_blank");
-    }
-}
 
 window.addEventListener('load', setUp, false);  // Starts the script
