@@ -16,12 +16,12 @@
 
 
 ## Case 2: Higher Calculator Functionality
-###	Check if the calculator can calculate the square of a number.
--	Calculate the root of 324 and verify the result is 18.
 ###	Check if the calculator can calculate the root of a number.
+-	Calculate the root of 324 and verify the result is 18.
+###	Check if the calculator can calculate the square of a number.
 -	Calculate the square of 23 and verify the result is 529.
 ###	Check if the calculator can calculate the cube root of a number.
--	Calculate the root of 2744 and verify the result is 14.
+-	Calculate the cube root of 2744 and verify the result is 14.
 ###	Check if the calculator can calculate the inverse of a number. (w)
 -	Calculate the inverse of 8 and verify the result is 0,125.
 ###	Check if the calculator can calculate the factorial of a number.
